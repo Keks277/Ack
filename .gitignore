@@ -2,12 +2,15 @@
 .vs/
 *.user
 *.suo
+.vscode/
 
 # Build results
 bin/
 obj/
 [Ll]og/
 *.log
+src/*/bin/
+src/*/obj/
 
 # Rider IDE
 .idea/
