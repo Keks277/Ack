@@ -1,0 +1,69 @@
+# Visual Studio
+.vs/
+*.user
+*.suo
+
+# Build results
+bin/
+obj/
+[Ll]og/
+*.log
+
+# Rider IDE
+.idea/
+
+# User-specific files
+*.user
+*.userosscache
+*.sln.docstates
+
+# ASP.NET
+wwwroot/node_modules/
+node_modules/
+
+# NuGet
+*.nupkg
+packages/
+*.snupkg
+project.lock.json
+project.fragment.lock.json
+artifacts/
+
+# DotCover
+*.dotCover
+
+# Resharper
+_ReSharper*/
+*.[Rr]e[Ss]harper
+
+# Rider
+.idea/
+
+# VS Code
+.vscode/
+
+# Others
+*.DS_Store
+*.sln.cache
+*.db
+*.sqlite
+*.sqlite3
+*.pdb
+
+# Logs and dumps
+*.log
+*.dmp
+
+# Temporary files
+*.tmp
+*.bak
+
+# Docker
+**/docker-compose.override.yml
+.env
+.env.*
+
+# Optional: Exclude secrets and local config files
+secrets.json
+appsettings.Development.json
+appsettings.Local.json
