@@ -41,8 +41,10 @@ public class WebSocketRequestHandler
                         {
                             var queueName = doc.GetProperty("queue").GetString()!;
                             subscribedQueue = _queues.GetOrAdd(queueName, _ => new AckQueue(TimeSpan.FromSeconds(5), 3, false));
-
-                            consumer = new WebSocketConsumer(webSocket);
+                            consumer = new WebSocketConsumer(
+                                webSocket,
+                                Guid.Parse(doc.GetProperty("consumerID").GetString()!),
+                                queueName);
                             subscribedQueue.StartConsume(consumer);
                             _ = subscribedQueue.StartAsync(CancellationToken.None);
 
@@ -51,10 +53,10 @@ public class WebSocketRequestHandler
                     case "publish":
                         {
                             var queueName = doc.GetProperty("queue").GetString()!;
-                            var payload = doc.GetProperty("payload").GetString()!;
+                            var payload = doc.GetProperty("payload").GetBytesFromBase64()!;
 
                             var queue = _queues.GetOrAdd(queueName, _ => new AckQueue(TimeSpan.FromSeconds(5), 3, false));
-                            await queue.EnqueAsync(Encoding.UTF8.GetBytes(payload));
+                            await queue.EnqueAsync(payload);
 
                             break;
                         }

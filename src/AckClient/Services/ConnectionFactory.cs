@@ -1,5 +1,6 @@
 using System.Threading.Tasks;
 
+namespace AckClient.Services;
 public class ConnectionFactory
 {
     private string _userName;

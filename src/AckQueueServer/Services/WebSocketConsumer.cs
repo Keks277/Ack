@@ -10,9 +10,15 @@ public class WebSocketConsumer : IMessageConsumer
     private readonly WebSocket _webSocket;
     public bool ack = false;
 
-    public WebSocketConsumer(WebSocket webSocket)
+    public Guid Guid { get; private set; }
+
+    public string QueueName { get; private set; }
+
+    public WebSocketConsumer(WebSocket webSocket, Guid id, string queueName)
     {
+        this.QueueName = queueName;
         this._webSocket = webSocket;
+        this.Guid = id;
     }
 
     public event Func<object, BasicEventArgs, Task>? Received;
@@ -27,7 +33,9 @@ public class WebSocketConsumer : IMessageConsumer
         var message = new
         {
             type = "message",
-            body = Convert.ToBase64String(args.Body.ToArray())
+            body = Convert.ToBase64String(args.Body.ToArray()),
+            consumerID = Guid.ToString(),
+            queue = this.QueueName
         };
 
         var json = JsonSerializer.Serialize(message);
